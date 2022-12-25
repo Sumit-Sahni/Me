@@ -15,18 +15,14 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 //     res.send("Hello")
 // })
 
+app.use(express.static(path.join(__dirname, "./frontend/build")))
+     app.get('*', (req, res) => {
+          res.sendFile(path.join(__dirname, './frontend/build/index.html')),
+          function(err){
+             res.status(500).send(err);
+          }});
+     
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, 'frontend/build')));
-    
-    app.get('*', (req, res) => {
-        res.sendFile(path.join(__dirname, 'frontend/build/index.html'));
-    });
-}else{
-    app.get("/",(req,res)=>{
-      res.send("APi is running")
-    } )
-}
 
 const PORT = process.env.PORT;  
 app.listen(PORT,()=>{
