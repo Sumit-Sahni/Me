@@ -11,11 +11,9 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false })); 
 
 
-// app.get("/", (req, res)=>{
-//     res.send("Hello")
-// })
+
 app.use(express.static(path.join(__dirname, "./frontend/build")));
-app.get("*", function (_, res) {
+app.get("*", function ( req, res) {
   res.sendFile(
     path.join(__dirname, "./frontend/build/index.html"),
     function (err) {
